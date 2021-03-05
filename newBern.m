@@ -1,4 +1,4 @@
-function [pos,Cov] = newBernNew(measurement,R,x,type)
+function [pos,Cov] = newBern(measurement,R,x,type)
 
     x = [x(1:2,1);0;x(3:end,1)];
     pos_b = [0,0,40]';
