@@ -195,7 +195,7 @@ function [PPP_update,local_hyp_update,global_hyp_update,log_w_sum] = PMBM_update
         cost_matrix = [cost1,cost2];
 
         
-        [assignments,weights]= murty(cost_matrix,k_best);
+        [assignments,~]= murty(cost_matrix,k_best);
         
         log_w = log(globH_pre_weight(1,j))*ones(1,size(assignments,1));
         globH = zeros(size(assignments,1),N_object+N_mea);
