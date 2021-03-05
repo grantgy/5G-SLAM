@@ -1,4 +1,4 @@
-function [pos,Cov] = newBernNew(measurement,R,x,type)
+function [pos,Cov] = newBern(measurement,R,x,type)
 
     x = [x(1:2,1);0;x(3:end,1)];
     pos_b = [0,0,40]';
@@ -55,7 +55,7 @@ function [pos_v] = cubature_point_estimation_VA(point_cub,x,pos_b,R,pos_0)
     iter =1;
     beta = 0.2;
     
-    while cost(iter)-cost(iter+1) > 0 
+    while cost(iter)-cost(iter+1) > 0 && iter < 100
         h = VA_function(pos_v,x,pos_b);
         if beta+.2 <= 1
             beta = beta + .2;
@@ -84,7 +84,7 @@ function [pos_s] = cubature_point_estimation_SP(point_cub,x,pos_b,R,pos_0)
     iter =1;
     beta =0.2;
     
-    while cost(iter)-cost(iter+1) > 0 
+    while cost(iter)-cost(iter+1) > 0 && iter < 100
         h = SP_function(pos_s,x,pos_b);
         
         if beta+.2 <= 1
