@@ -152,6 +152,7 @@ title('GOSPA for Vehicle 1')
 set(xl,'Interpreter','latex','FontSize',12);
 set(yl,'Interpreter','latex','FontSize',12);
 set(ll,'Interpreter','latex','FontSize',11,'Location','NorthEast');
+pbaspect([3 1 1 ])
 hold off
 
 figure (2)
@@ -166,5 +167,6 @@ title('GOSPA for Vehicle 2')
 set(xl,'Interpreter','latex','FontSize',12);
 set(yl,'Interpreter','latex','FontSize',12);
 set(ll,'Interpreter','latex','FontSize',11,'Location','NorthEast');
+pbaspect([3 1 1 ])
 hold off
 
