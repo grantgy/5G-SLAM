@@ -147,10 +147,11 @@ plot(1:size(map_v1,2)-1,GOSPA_VA_v1(1,2:end),'b','LineWidth', 2)
 plot(1:size(map_v1,2)-1,GOSPA_SP_v1(1,2:end),'r','LineWidth', 2)
 xl=xlabel('time step');
 yl=ylabel('GOSPA value' );
-legend('VA','SP')
+ll=legend('VA','SP')
 title('GOSPA for Vehicle 1')
 set(xl,'Interpreter','latex','FontSize',12);
 set(yl,'Interpreter','latex','FontSize',12);
+set(ll,'Interpreter','latex','FontSize',11,'Location','NorthEast');
 hold off
 
 figure (2)
@@ -160,9 +161,10 @@ plot(1:size(map_v2,2)-1,GOSPA_VA_v2(1,2:end),'b','LineWidth', 2)
 plot(1:size(map_v2,2)-1,GOSPA_SP_v2(1,2:end),'r','LineWidth', 2)
 xl=xlabel('time step');
 yl=ylabel('GOSPA value' );
-legend('VA','SP')
+ll=legend('VA','SP')
 title('GOSPA for Vehicle 2')
 set(xl,'Interpreter','latex','FontSize',12);
 set(yl,'Interpreter','latex','FontSize',12);
+set(ll,'Interpreter','latex','FontSize',11,'Location','NorthEast');
 hold off
 
