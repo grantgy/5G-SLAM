@@ -76,5 +76,13 @@ classdef Testclass < matlab.unittest.TestCase
             expSolution = [0;pi/2;0;0;0];
             testCase.verifyEqual(actSolution,expSolution);
         end
+        
+        function test_Cali_AOD_increase(testCase)
+            % test_Cali_AOD_increase tests that Cali.m works as intended if
+            % AOD need to be increased
+            actSolution = Cali([0;0;0;-pi/2;0],[0;0;0;3*pi/2;0]);
+            expSolution = [0;0;0;3*pi/2;0];
+            testCase.verifyEqual(actSolution,expSolution);
+        end
   end
 end
