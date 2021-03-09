@@ -35,6 +35,22 @@ classdef Testclass < matlab.unittest.TestCase
             testCase.verifySize (actSolution_P,expSolution_P_dim);
             testCase.verifySize (actSolution_x,expSolution_x_dim);
         end
+        
+        function test_kf_prediction_case(testCase)
+            % test_kf_prediction_case is a case test to test that kf_prediction works as intended
+            
+            x = [1;2];
+            P = [1,0.5;0.5,1];
+            F = [1,2;0,1];
+            Q = [1,0;0,1];
+            
+            expSolution_x = [5;2];
+            expSolution_P = [8,2.5;2.5,2];
+            
+            [actSolution_x,actSolution_P] = kf_prediction(x,P,F,Q);
+            testCase.verifyEqual(actSolution_x,expSolution_x);
+            testCase.verifyEqual(actSolution_P,expSolution_P);
+        end
   
   end
 end
