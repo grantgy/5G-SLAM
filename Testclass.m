@@ -84,5 +84,13 @@ classdef Testclass < matlab.unittest.TestCase
             expSolution = [0;0;0;3*pi/2;0];
             testCase.verifyEqual(actSolution,expSolution);
         end
+        
+        function test_Cali_AOD_decrease(testCase)
+            % test_Cali_AOD_decrease tests that Cali.m works as intended if
+            % AOD need to be decreased
+            actSolution = Cali([0;0;0;3*pi/4;0],[0;0;0;-pi/2;0]);
+            expSolution = [0;0;0;-5*pi/4;0];
+            testCase.verifyEqual(actSolution,expSolution);
+        end
   end
 end
