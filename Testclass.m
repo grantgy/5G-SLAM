@@ -68,5 +68,13 @@ classdef Testclass < matlab.unittest.TestCase
             expSolution = [0;-5*pi/4;0;0;0];
             testCase.verifyEqual(actSolution,expSolution);
         end
+        
+        function test_Cali_AOA_unchange(testCase)
+            % test_Cali_AOA_unchange tests that Cali.m works as intended if
+            % AOA do not need to be changed
+            actSolution = Cali([0;pi/2;0;0;0],[0;-pi/2;0;0;0]);
+            expSolution = [0;pi/2;0;0;0];
+            testCase.verifyEqual(actSolution,expSolution);
+        end
   end
 end
