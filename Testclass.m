@@ -110,5 +110,17 @@ classdef Testclass < matlab.unittest.TestCase
             testCase.verifyEqual(actSolution_UM.weight,expSolution_weight);
             testCase.verifyEqual(actSolution_UM.pro,expSolution_pro);
         end
+        
+        function test_GM(testCase)
+            % test_GM tests GM.m can generate correct class of Gaussian
+            % mixture
+            expSolution_weight = 1;
+            expSolution_mean = [0;0;40]; 
+            expSolution_covariance = eye(3);
+            actSolution_GM = GM(1,[0;0;40],eye(3));
+            testCase.verifyEqual(actSolution_GM.weight,expSolution_weight);
+            testCase.verifyEqual(actSolution_GM.mean,expSolution_mean);
+            testCase.verifyEqual(actSolution_GM.covariance,expSolution_covariance);
+        end
   end
 end
