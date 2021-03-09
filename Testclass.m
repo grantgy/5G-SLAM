@@ -122,5 +122,17 @@ classdef Testclass < matlab.unittest.TestCase
             testCase.verifyEqual(actSolution_GM.mean,expSolution_mean);
             testCase.verifyEqual(actSolution_GM.covariance,expSolution_covariance);
         end
+        
+        function test_MAP(testCase)
+            % test_MAP tests MAP.m can generate correct class of map of
+            % landmarks
+            expSolution_BS = [0;0;0];
+            expSolution_VA = [200,100;200,100;40,20]; 
+            expSolution_SP = [50,-50,30;50,-50,30;0,10,20];
+            actSolution_MAP = MAP([0;0;0],[200,100;200,100;40,20],[50,-50,30;50,-50,30;0,10,20]);
+            testCase.verifyEqual(actSolution_MAP.BS,expSolution_BS);
+            testCase.verifyEqual(actSolution_MAP.VA,expSolution_VA);
+            testCase.verifyEqual(actSolution_MAP.SP,expSolution_SP);
+        end
   end
 end
