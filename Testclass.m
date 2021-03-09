@@ -52,5 +52,13 @@ classdef Testclass < matlab.unittest.TestCase
             testCase.verifyEqual(actSolution_P,expSolution_P);
         end
   
+        function test_Cali_AOA_increase(testCase)
+            % test_Cali_AOA_increase tests that Cali.m works as intended if
+            % AOA needs to be increased
+            
+            actSolution = Cali([0;-pi/2;0;0;0],[0;3*pi/2;0;0;0]);
+            expSolution = [0;3*pi/2;0;0;0];
+            testCase.verifyEqual(actSolution,expSolution);
+        end
   end
 end
