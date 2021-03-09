@@ -100,5 +100,15 @@ classdef Testclass < matlab.unittest.TestCase
             expSolution = [0;pi/3;0;0;0];
             testCase.verifyEqual(actSolution,expSolution);
         end
+        
+        function test_UM(testCase)
+            % test_UM tests UM.m can generate correct class of uniform
+            % distribution mixture
+            expSolution_weight = [0.5,0.5];
+            expSolution_pro = [4,3];            
+            actSolution_UM = UM([0.5,0.5],[4,3]);
+            testCase.verifyEqual(actSolution_UM.weight,expSolution_weight);
+            testCase.verifyEqual(actSolution_UM.pro,expSolution_pro);
+        end
   end
 end
