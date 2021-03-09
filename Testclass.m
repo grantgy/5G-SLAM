@@ -134,5 +134,20 @@ classdef Testclass < matlab.unittest.TestCase
             testCase.verifyEqual(actSolution_MAP.VA,expSolution_VA);
             testCase.verifyEqual(actSolution_MAP.SP,expSolution_SP);
         end
+        
+        function test_MB(testCase)
+            % test_MB tests MB.m can generate correct class of
+            % Multi-Bernoulli process
+            expSolution_p_exist = [1,0.5];
+            expSolution_Gaussian_mixture = [GM(1,[0;0;40],eye(3)),GM(0.1,[0;0;20],eye(3))]; 
+            expSolution_log_weight = [100,-2.1];
+            expSolution_birth_time = 0;
+            
+            actSolution_MB = MB([1,0.5],[GM(1,[0;0;40],eye(3)),GM(0.1,[0;0;20],eye(3))],[100,-2.1],0);
+            testCase.verifyEqual(actSolution_MB.p_exist,expSolution_p_exist);
+            testCase.verifyEqual(actSolution_MB.Gaussian_mixture,expSolution_Gaussian_mixture);
+            testCase.verifyEqual(actSolution_MB.log_weight,expSolution_log_weight);
+            testCase.verifyEqual(actSolution_MB.birth_time,expSolution_birth_time);
+        end
   end
 end
