@@ -88,6 +88,24 @@ classdef Testclass < matlab.unittest.TestCase
             testCase.verifySize (actSolution_P,expSolution_P_dim);
             testCase.verifySize (actSolution_x,expSolution_x_dim);
         end
+        
+        function test_kf_update_case(testCase)
+            % test_kf_update_case is a case test to test that kf_update.m works as intended
+            
+            x_pre = [1;2];
+            P_pre = [1,0.5;0.5,1];
+            H = [2,1]; 
+            R = 1;
+            measurement = 2;
+            
+            expSolution_x = [0.375;1.5];
+            expSolution_P = [0.21875,-0.125;-0.125,0.5];
+            
+            [actSolution_x,actSolution_P] = kf_update(x_pre, P_pre, H, R, measurement);
+
+            testCase.verifyEqual(actSolution_x,expSolution_x);
+            testCase.verifyEqual(actSolution_P,expSolution_P);
+        end
   
         function test_Cali_AOA_increase(testCase)
             % test_Cali_AOA_increase tests that Cali.m works as intended if
