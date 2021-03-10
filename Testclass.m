@@ -67,6 +67,27 @@ classdef Testclass < matlab.unittest.TestCase
             
             testCase.verifyEqual(actSolution_P,actSolution_P');
         end
+        
+        function test_kf_update_dimension(testCase)
+            % test_kf_update_dimension tests that kf_update.m works as intended
+            
+            % This is to check the size of state and covariance matrix outputed by Kalman 
+            % filter update step meet the size requirement.
+            x = roundn(5*rand(4,1),-3);
+            P = roundn(5*abs(rand(4,4)),-3);
+            P = (P+P')/2;
+            H = roundn(5*rand(1,4),-3);
+            R = roundn(5*abs(rand(1,1)),-3);
+            measurement = roundn(5*abs(rand(1,1)),-3);
+            
+            expSolution_x_dim = [4,1];
+            expSolution_P_dim = [4,4];
+            
+            [actSolution_x,actSolution_P] = kf_update(x,P,H,R,measurement);
+
+            testCase.verifySize (actSolution_P,expSolution_P_dim);
+            testCase.verifySize (actSolution_x,expSolution_x_dim);
+        end
   
         function test_Cali_AOA_increase(testCase)
             % test_Cali_AOA_increase tests that Cali.m works as intended if
