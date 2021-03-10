@@ -204,5 +204,15 @@ classdef Testclass < matlab.unittest.TestCase
             testCase.verifyEqual(actSolution_MB.log_weight,expSolution_log_weight);
             testCase.verifyEqual(actSolution_MB.birth_time,expSolution_birth_time);
         end
+        
+        function test_global_hypothesis(testCase)
+            % test_global_hypothesis tests global_hypothesis.m can generate
+            % correct class of global hypothesis
+            expSolution_weight = [0.5,0.5];
+            expSolution_look_up_table = [1,1;1,0];            
+            actSolution_GH = global_hypothesis([0.5,0.5],[1,1;1,0]);
+            testCase.verifyEqual(actSolution_GH.weight,expSolution_weight);
+            testCase.verifyEqual(actSolution_GH.look_up_table,expSolution_look_up_table);
+        end
   end
 end
