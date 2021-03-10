@@ -1,6 +1,8 @@
 clear all
 close all
 
+addpath(fullfile(pwd,'Functions'));
+
 BS = [0;0;40];
 VA = [200,-200,0,0;
     0,0,200,-200;
