@@ -2,7 +2,17 @@ classdef Testclass < matlab.unittest.TestCase
   %Testclass contains test functions which test some testable functions 
   %work as intended. The folder is added to the path and then a variety
   %of tests are performed.
+  properties
+        OriginalPath
+  end
+  
   methods (Test)
+        function addFOLDERSToPath(testCase)
+            % add folders to the path
+            testCase.OriginalPath=path;
+            addpath(fullfile(pwd,'Functions'));
+        end
+        
         function test_kf_prediction_symmetrix_P(testCase)
             %test_kf_prediction_symmetrix_P tests that kf_prediction works as intended
             
