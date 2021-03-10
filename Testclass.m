@@ -51,6 +51,22 @@ classdef Testclass < matlab.unittest.TestCase
             testCase.verifyEqual(actSolution_x,expSolution_x);
             testCase.verifyEqual(actSolution_P,expSolution_P);
         end
+        
+        function test_kf_update_symmetrix_P(testCase)
+            %test_kf_update_symmetrix_P tests that kf_update.m works as intended
+            
+            %This is to check the covariance matrix after Kalman filter update step 
+            % should be symmetric             
+            x = roundn(5*rand(4,1),-3);
+            P = roundn(5*abs(rand(4,4)),-3);
+            P = (P+P')/2;
+            H = roundn(5*rand(1,4),-3);
+            R = roundn(5*abs(rand(1,1)),-3);
+            measurement = roundn(5*abs(rand(1,1)),-3);
+            [~,actSolution_P] = kf_update(x,P,H,R,measurement);
+            
+            testCase.verifyEqual(actSolution_P,actSolution_P');
+        end
   
         function test_Cali_AOA_increase(testCase)
             % test_Cali_AOA_increase tests that Cali.m works as intended if
