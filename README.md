@@ -1,5 +1,6 @@
 # 5G-SLAM
-This repo contains a 5G simultaneous localization and mapping (SLAM) system written in the Matlab language. This code computes the performances of the vehicle state estimation and the mapping of the environment in 5G mmWave vehicular networks. With time passing, more measurement are received, which makes estimations become more accurate.
+This repo contains a 5G simultaneous localization and mapping (SLAM) system written in the Matlab language. This code computes the performances of the vehicle state estimation and the mapping of the environment in 5G mmWave vehicular networks. With time passing, more measurement are received, which makes estimations become more accurate. Here is an example of the evaluation of mapping results.
+![Intel](./GOSPA.jpg)
 
 
 ## Summary
