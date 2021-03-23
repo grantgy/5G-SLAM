@@ -1,11 +1,11 @@
-function [measurement,v_state] = create_measurement(x,n,v,ang_v,T,R,L_BS,L_VA,L_SP)
+function [measurement,v_state] = create_measurement(x,steps,v,ang_v,T,R,L_BS,L_VA,L_SP)
     x = [x(1:2,1);0;x(3:end,1)];
 
-    measurement = cell(1,n);
+    measurement = cell(1,steps);
     pa = 0.9;
     v_state = x;
     
-    for i =1:n
+    for i =1:steps
        v_a = v/ang_v;
        ang_delta = ang_v * T;
         
