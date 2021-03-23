@@ -3,6 +3,7 @@ function [measurement,v_state] = create_measurement(x,steps,v,ang_v,T,R,L_BS,L_V
 
     measurement = cell(1,steps);
     P_detection = 0.9; % detection probability
+    Fov = 50; % field of view
     v_state = x;
     
     for i =1:steps
@@ -48,7 +49,7 @@ function [measurement,v_state] = create_measurement(x,steps,v,ang_v,T,R,L_BS,L_V
        
        for j=1:size(L_SP,2)
            if rand(1)<P_detection
-               if norm(L_SP(1:3,j)-x(1:3,1)) <= 50
+               if norm(L_SP(1:3,j)-x(1:3,1)) <= Fov
                    z = zeros(5,1);
                    z(1,1) = norm(L_SP(1:3,j)-x(1:3,1))+norm(L_SP(1:3,j)-L_BS(1:3,1))+x(5,1);
                    z(2,1) = atan2(L_SP(2,j),L_SP(1,j));
