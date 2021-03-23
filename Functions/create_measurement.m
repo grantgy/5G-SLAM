@@ -2,7 +2,7 @@ function [measurement,v_state] = create_measurement(x,steps,v,ang_v,T,R,L_BS,L_V
     x = [x(1:2,1);0;x(3:end,1)];
 
     measurement = cell(1,steps);
-    pa = 0.9;
+    P_detection = 0.9; % detection probability
     v_state = x;
     
     for i =1:steps
@@ -18,7 +18,7 @@ function [measurement,v_state] = create_measurement(x,steps,v,ang_v,T,R,L_BS,L_V
        z1 = [];
        for j=1:size(L_BS,2)
            
-           if rand(1)<pa
+           if rand(1)<P_detection
                z = zeros(5,1);
                z(1,1) = norm(L_BS(1:3,j)-x(1:3,1))+x(5,1);
                z(2,1) = atan2(x(2,1),x(1,1));
@@ -31,7 +31,7 @@ function [measurement,v_state] = create_measurement(x,steps,v,ang_v,T,R,L_BS,L_V
        end
        
        for j=1:size(L_VA,2)
-           if rand(1)<pa
+           if rand(1)<P_detection
                z = zeros(5,1);
                u = (L_BS -L_VA(:,j)) ./norm(L_BS - L_VA(:,j));
                f = (L_BS +L_VA(:,j)) ./2;
@@ -47,7 +47,7 @@ function [measurement,v_state] = create_measurement(x,steps,v,ang_v,T,R,L_BS,L_V
        end
        
        for j=1:size(L_SP,2)
-           if rand(1)<pa
+           if rand(1)<P_detection
                if norm(L_SP(1:3,j)-x(1:3,1)) <= 50
                    z = zeros(5,1);
                    z(1,1) = norm(L_SP(1:3,j)-x(1:3,1))+norm(L_SP(1:3,j)-L_BS(1:3,1))+x(5,1);
