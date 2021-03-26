@@ -14,11 +14,10 @@ function [pos,Cov] = newBern(measurement,R,x,type)
     
     if type ==2
         for j =1:10            
-            TOA = point_cub(1,j); AODaz = point_cub(2,j); AODel = point_cub(3,j); AOAaz = point_cub(4,j); AOAel = point_cub(5,j);
+            TOA = point_cub(1,j); AOAaz = point_cub(4,j); AOAel = point_cub(5,j);
             Radius = TOA-x(5);
             R_xy = Radius*cos(AOAel);
             pos_0 = [x(1) + R_xy*cos(AOAaz + x(4)); x(2) + R_xy*sin(AOAaz + x(4)); x(3) + Radius*sin(AOAel)];
-            TOA = point_cub(1,j); AODaz = point_cub(2,j); AODel = point_cub(3,j); AOAaz = point_cub(4,j); AOAel = point_cub(5,j);                    
             x_v = cubature_point_estimation_VA(point_cub(:,j),x,pos_b,R,pos_0);
             pos = pos + x_v;
             Cov = Cov + x_v*x_v';
@@ -27,7 +26,7 @@ function [pos,Cov] = newBern(measurement,R,x,type)
         Cov = diag(diag(Cov./10 - pos*pos'));
     elseif type ==3
         for j =1:10         
-            TOA = point_cub(1,j); AODaz = point_cub(2,j); AODel = point_cub(3,j); AOAaz = point_cub(4,j); AOAel = point_cub(5,j);
+            TOA = point_cub(1,j); AOAaz = point_cub(4,j); AOAel = point_cub(5,j);
             Radius = TOA-x(5);
             R_xy = Radius*cos(AOAel);          
             VA_geo = [x(1) + R_xy*cos(AOAaz + x(4)); x(2) + R_xy*sin(AOAaz + x(4)); x(3) + Radius*sin(AOAel)]; 
