@@ -11,7 +11,7 @@ function [pos,P,z_inv,R_inv] = CKF(x,measurement,pos,P,R,type)
     R_inv = zeros(5);
     P_xz  = zeros(3,5);
     if type == 1
-        for i = 1:6
+        for i = 1:size(w,2)
             z(1,i) = norm(pos_u(1:3,i)-x(1:3,1))+x(5,1);
             z(2,i) = atan2(x(2,1),x(1,1));
             z(3,i) = asin((x(3,1)-pos_u(3,i))/norm(x(1:3,1)-pos_u(1:3,i)));
@@ -24,12 +24,12 @@ function [pos,P,z_inv,R_inv] = CKF(x,measurement,pos,P,R,type)
             z_inv = z_inv + z(:,i);
             R_inv = R_inv + z(:,i)*z(:,i)' ;
         end
-        z_inv = z_inv./6;
-        R_inv = R_inv./6 - z_inv*z_inv' + R;
+        z_inv = z_inv./size(w,2);
+        R_inv = R_inv./size(w,2) - z_inv*z_inv' + R;
         z_inv = Cali(z_inv, measurement);
         
     elseif type == 2 
-        for i = 1:6
+        for i = 1:size(w,2)
             u = (pos_b -pos_u(:,i)) ./norm(pos_b - pos_u(:,i));
             f = (pos_b +pos_u(:,i)) ./2;
             pos_s= pos_u(:,i) +(f-pos_u(:,i))'*u/((x(1:3,1)-pos_u(:,i))'*u)*(x(1:3,1)-pos_u(:,i));
@@ -49,7 +49,7 @@ function [pos,P,z_inv,R_inv] = CKF(x,measurement,pos,P,R,type)
 
         
     elseif type == 3 
-        for i = 1:6
+        for i = 1:size(w,2)
             z(1,i) = norm(pos_u(1:3,i)-x(1:3,1))+norm(pos_u(1:3,i)-pos_b(1:3,1))+x(5,1);
             z(2,i) = atan2(pos_u(2,i),pos_u(1,i));
             z(3,i) = asin((pos_u(3,i)-pos_b(3,1))/norm(pos_u(1:3,i)-pos_b(1:3,1)));
