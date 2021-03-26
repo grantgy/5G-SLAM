@@ -17,14 +17,12 @@ function [error_location,error_heading,error_bias,GOSPA_VA,GOSPA_SP] =Evaluation
     
     for i = 2 : size(map,2)
         if ~isempty(map{1,i}.VA.mean) && ~isempty(VA) 
-            index = find(map{1,i}.VA.weight >= T_VA);
-            map{1,i}.VA.mean =  map{1,i}.VA.mean(:,index);
+            map{1,i}.VA.mean =  map{1,i}.VA.mean(:,map{1,i}.VA.weight >= T_VA);
             [GOSPA_VA(1,i),~, ~] = GOSPA(map{1,i}.VA.mean, VA, p, c, alpha);
         elseif isempty(map{1,i}.VA.mean) && ~isempty(VA) 
             GOSPA_VA(1,i)= GOSPA(double.empty(3,0), VA, p, c, alpha);
         elseif ~isempty(map{1,i}.VA.mean) && isempty(VA)   
-            index = find(map{1,i}.VA.weight >= T_VA);
-            map{1,i}.VA.mean =  map{1,i}.VA.mean(:,index);
+            map{1,i}.VA.mean =  map{1,i}.VA.mean(:,map{1,i}.VA.weight >= T_VA);
             GOSPA_VA(1,i)= GOSPA(map{1,i}.VA.mean,double.empty(3,0), p, c, alpha);
         else
             GOSPA_VA(1,i)= GOSPA(double.empty(3,0), double.empty(3,0), p, c, alpha);
@@ -33,14 +31,12 @@ function [error_location,error_heading,error_bias,GOSPA_VA,GOSPA_SP] =Evaluation
     
     for i = 2:size(map,2)
         if ~isempty(map{1,i}.SP.mean) && ~isempty(SP)
-            index = find(map{1,i}.SP.weight >= T_SP);
-            map{1,i}.SP.mean =  map{1,i}.SP.mean(:,index);
+            map{1,i}.SP.mean =  map{1,i}.SP.mean(:,map{1,i}.SP.weight >= T_SP);
             [GOSPA_SP(1,i),~, ~] = GOSPA(map{1,i}.SP.mean, SP, p, c, alpha);
         elseif isempty(map{1,i}.SP.mean) &&  ~isempty(SP)
             GOSPA_SP(1,i) = GOSPA(double.empty(3,0), SP, p, c, alpha);
         elseif ~isempty(map{1,i}.SP.mean) &&  isempty(SP)
-            index = find(map{1,i}.SP.weight >= T_SP);
-            map{1,i}.SP.mean =  map{1,i}.SP.mean(:,index);
+            map{1,i}.SP.mean =  map{1,i}.SP.mean(:,map{1,i}.SP.weight >= T_SP);
             GOSPA_SP(1,i) = GOSPA(map{1,i}.SP.mean,double.empty(3,0), p, c, alpha);
         else
             GOSPA_SP(1,i)= GOSPA(double.empty(3,0), double.empty(3,0), p, c, alpha);
