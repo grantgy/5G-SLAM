@@ -1,5 +1,5 @@
 function [z] = measurement_function(pos,x,pos_b,m,measurement)
-
+    period = 2*pi;
     z = zeros(5,1);
     x = [x(1:2,1);0;x(3:end,1)];
 
@@ -31,15 +31,15 @@ function [z] = measurement_function(pos,x,pos_b,m,measurement)
     end
 
     while z(2,1) < 0
-        z(2,1) = z(2,1)+2*pi;
+        z(2,1) = z(2,1)+period;
     end
 
     while z(4,1) < 0
-        z(4,1) = z(4,1)+2*pi;
+        z(4,1) = z(4,1)+period;
     end
 
     while z(4,1) >= 2*pi
-        z(4,1) = z(4,1)-2*pi;
+        z(4,1) = z(4,1)-period;
     end
 
     z = Cali(z,measurement);
