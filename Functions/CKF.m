@@ -18,14 +18,8 @@ function [pos,P,z_inv,R_inv] = CKF(x,measurement,pos,P,R,type)
             z(4,i) = pi + atan2(x(2,1),x(1,1)) - x(4,1);
             z(5,i) = asin((pos_u(3,i)-x(3,1))/norm(x(1:3,1)-pos_u(1:3,i)));
             
-            while z(2,i) < 0
-                z(2,i) = z(2,i)+2*pi;
-            end
             
-            while z(4,i) < 0
-                z(4,i) = z(4,i)+2*pi;
-            end
-            z(:,i) = Cali(z(:,i),z(:,1));
+            z(:,i) = calibration(z(:,i),z(:,1));
             
             z_inv = z_inv + z(:,i);
             R_inv = R_inv + z(:,i)*z(:,i)' ;
@@ -45,15 +39,7 @@ function [pos,P,z_inv,R_inv] = CKF(x,measurement,pos,P,R,type)
             z(4,i) = atan2(pos_u(2,i)-x(2,1),pos_u(1,i)-x(1,1)) - x(4,1);
             z(5,i) = asin((pos_u(3,i)-x(3,1))/norm(x(1:3,1)-pos_u(1:3,i)));     
             
-            while z(2,i) < 0
-                z(2,i) = z(2,i)+2*pi;
-            end
-            
-            while z(4,i) < 0
-                z(4,i) = z(4,i)+2*pi;
-            end
-            
-            z(:,i) = Cali(z(:,i),z(:,1));
+            z(:,i) = calibration(z(:,i),z(:,1));
             
             z_inv = z_inv + z(:,i);
             R_inv = R_inv + z(:,i)*z(:,i)';
@@ -76,14 +62,7 @@ function [pos,P,z_inv,R_inv] = CKF(x,measurement,pos,P,R,type)
             z(4,i) = atan2(pos_u(2,i)-x(2,1),pos_u(1,i)-x(1,1)) - x(4,1);
             z(5,i) = asin((pos_u(3,i)-x(3,1))/norm(x(1:3,1)-pos_u(1:3,i)));       
             
-            while z(2,i) < 0
-                z(2,i) = z(2,i)+2*pi;
-            end
-            
-            while z(4,i) < 0
-                z(4,i) = z(4,i)+2*pi;
-            end
-            z(:,i) = Cali(z(:,i),z(:,1));
+            z(:,i) = calibration(z(:,i),z(:,1));
             
             z_inv = z_inv + z(:,i);
             R_inv = R_inv + z(:,i)*z(:,i)';
@@ -101,4 +80,15 @@ function [pos,P,z_inv,R_inv] = CKF(x,measurement,pos,P,R,type)
         error('Wrong input source');
     end
     
+end
+
+function output = calibration (input,reference)
+    while input(2,1) < 0
+        input(2,1) = input(2,1)+2*pi;
+    end
+            
+    while input(4,1) < 0
+        input(4,1) = input(4,1)+2*pi;
+    end
+	output = Cali(input,reference);
 end
