@@ -45,13 +45,7 @@ function [pos,P,z_inv,R_inv] = CKF(x,measurement,pos,P,R,type)
             R_inv = R_inv + z(:,i)*z(:,i)';
             P_xz  = P_xz  + pos_u(:,i)*z(:,i)';
         end
-        z_inv = z_inv./6;
-        R_inv = R_inv./6 - z_inv*z_inv' + R;  
-        P_xz  = P_xz./6  - pos*z_inv';
-        K     = P_xz  / R_inv;
-        z_inv = Cali(z_inv, measurement);
-        pos   = pos   + K*(measurement - z_inv);
-        P     = P     - K*R_inv*K';
+        [pos,P,z_inv,R_inv]= update_parameters (pos,P,z_inv,R_inv,P_xz,R,measurement);
 
         
     elseif type == 3 
@@ -68,13 +62,7 @@ function [pos,P,z_inv,R_inv] = CKF(x,measurement,pos,P,R,type)
             R_inv = R_inv + z(:,i)*z(:,i)';
             P_xz  = P_xz  + pos_u(:,i)*z(:,i)';
         end
-        z_inv = z_inv./6;
-        R_inv = R_inv./6 - z_inv*z_inv' + R;     
-        P_xz  = P_xz./6  - pos*z_inv';
-        K     = P_xz  / R_inv;
-        z_inv = Cali(z_inv, measurement);
-        pos   = pos   + K*(measurement - z_inv);
-        P     = P     - K*R_inv*K';
+        [pos,P,z_inv,R_inv]= update_parameters (pos,P,z_inv,R_inv,P_xz,R,measurement);
         
     else
         error('Wrong input source');
@@ -91,4 +79,15 @@ function output = calibration (input,reference)
         input(4,1) = input(4,1)+2*pi;
     end
 	output = Cali(input,reference);
+end
+
+
+function [pos,P,z_inv,R_inv]= update_parameters (pos,P,z_inv,R_inv,P_xz,R,measurement)
+    z_inv = z_inv./6;
+    R_inv = R_inv./6 - z_inv*z_inv' + R;
+    P_xz  = P_xz./6  - pos*z_inv';
+    K     = P_xz  / R_inv;
+    z_inv = Cali(z_inv, measurement);
+    pos   = pos   + K*(measurement - z_inv);
+    P     = P     - K*R_inv*K';
 end
