@@ -2,9 +2,9 @@ function [pos,P,z_inv,R_inv] = CKF(x,measurement,pos,P,R,type)
     pos_b = [0,0,40]';
     x = [x(1:2,1);0;x(3:end,1)];
     S = chol(P,'lower');
-    w = sqrt(3)*[1 0 0 -1 0 0;
-         0 1 0 0 -1 0;
-         0 0 1 0  0 -1];
+    
+    w = sqrt(size(pos_b,1))*[eye(size(pos_b,1)),-eye(size(pos_b,1))];
+    
     pos_u = S*w+pos;
     z = zeros(5,6);
     z_inv = zeros(5,1);
