@@ -11,7 +11,7 @@ function [pos,Cov] = newBern(measurement,R,x,type)
     point_cub = S*w+measurement;
     
     if type ==2
-        for j =1:10            
+        for j =1:size(w,2)            
             TOA = point_cub(1,j); AOAaz = point_cub(4,j); AOAel = point_cub(5,j);
             Radius = TOA-x(5);
             R_xy = Radius*cos(AOAel);
@@ -20,10 +20,10 @@ function [pos,Cov] = newBern(measurement,R,x,type)
             pos = pos + x_v;
             Cov = Cov + x_v*x_v';
         end
-        pos = pos./10;
-        Cov = diag(diag(Cov./10 - pos*pos'));
+        pos = pos./size(w,2);
+        Cov = diag(diag(Cov./size(w,2) - pos*pos'));
     elseif type ==3
-        for j =1:10         
+        for j =1:size(w,2)         
             TOA = point_cub(1,j); AOAaz = point_cub(4,j); AOAel = point_cub(5,j);
             Radius = TOA-x(5);
             R_xy = Radius*cos(AOAel);          
@@ -35,8 +35,8 @@ function [pos,Cov] = newBern(measurement,R,x,type)
             pos = pos + x_s;
             Cov = Cov + x_s*x_s';
         end
-        pos = pos./10;
-        Cov = diag(diag(Cov./10 - pos*pos'));
+        pos = pos./size(w,2);
+        Cov = diag(diag(Cov./size(w,2) - pos*pos'));
     else
         error('Wrong input source');
     end
