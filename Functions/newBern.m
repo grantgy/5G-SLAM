@@ -3,11 +3,9 @@ function [pos,Cov] = newBern(measurement,R,x,type)
     x = [x(1:2,1);0;x(3:end,1)];
     pos_b = [0,0,40]';
     S = chol(R,'lower');
-    w = sqrt(5)*[1 0 0 0 0 -1  0  0  0 0;
-                 0 1 0 0 0  0 -1  0  0 0;
-                 0 0 1 0 0  0  0 -1  0 0;
-                 0 0 0 1 0  0  0  0 -1 0;
-                 0 0 0 0 1  0  0  0  0 -1];
+    
+    w = sqrt(size(x,1))*[eye(size(x,1)),-eye(size(x,1))];
+
     pos = zeros(3,1);
     Cov= zeros(3);
     point_cub = S*w+measurement;
